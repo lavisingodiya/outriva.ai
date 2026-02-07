@@ -34,7 +34,7 @@ A comprehensive web application that generates personalized job application cont
 ### 1. Clone and Install Dependencies
 
 ```bash
-cd AI-Job-Master
+cd Outriva.ai
 npm install
 ```
 
@@ -119,7 +119,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Project Structure
 
 ```
-AI-Job-Master/
+Outriva.ai/
 ├── app/                    # Next.js app directory
 │   ├── api/               # API routes
 │   ├── auth/              # Authentication pages

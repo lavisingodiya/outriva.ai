@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 2: Create charge
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ai-job-master.vercel.app';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     const redirectUrl = `${appUrl}/auth/payment-success?email=${encodeURIComponent(email)}`;
 
     console.log(`[TEST FLOW] Creating Coinbase charge for ${email}`);
@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
     },
     example: {
       method: 'POST',
-      url: 'https://ai-job-master.vercel.app/api/payment/test-complete-flow',
+      url: 'http://localhost:3000/api/payment/test-complete-flow',
       body: { email: 'testuser@example.com' },
     },
     expectedResponse: {

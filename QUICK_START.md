@@ -168,7 +168,7 @@ Same works for LinkedIn and Email generators!
 ## 📂 Project Structure
 
 ```
-AI-Job-Master/
+Outriva.ai/
 ├── app/
 │   ├── api/               # API routes
 │   │   ├── generate/      # AI generation endpoints
