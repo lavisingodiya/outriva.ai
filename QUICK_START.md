@@ -1,4 +1,4 @@
-# AI Job Master - Quick Start Guide
+# Outriva.ai - Quick Start Guide
 
 ## ✅ What's Working Right Now
 

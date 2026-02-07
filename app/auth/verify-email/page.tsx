@@ -26,7 +26,7 @@ function VerifyEmailContent() {
             <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-2xl font-display font-bold text-slate-900">AI Job Master</h1>
+            <h1 className="text-2xl font-display font-bold text-slate-900">Outriva.ai</h1>
           </Link>
         </motion.div>
 

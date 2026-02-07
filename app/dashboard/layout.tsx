@@ -123,7 +123,7 @@ export default function DashboardLayout({
           <span className={cn(
             "text-xl font-bold text-gray-900 dark:text-gray-100 whitespace-nowrap transition-all duration-300 ease-in-out",
             isSidebarCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100 w-auto"
-          )}>AI Job Master</span>
+          )}>Outriva.ai</span>
         </Link>
 
           {/* Collapse button - Desktop only */}
@@ -334,7 +334,7 @@ export default function DashboardLayout({
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-600 dark:bg-blue-500 flex items-center justify-center">
                   <span className="text-white text-sm sm:text-lg font-bold">AJ</span>
                 </div>
-                <span className="text-base sm:text-xl font-bold text-gray-900 dark:text-gray-100">AI Job Master</span>
+                <span className="text-base sm:text-xl font-bold text-gray-900 dark:text-gray-100">Outriva.ai</span>
               </Link>
             </div>
             

@@ -620,7 +620,7 @@ export default function Home() {
             className="text-center mb-8 sm:mb-12 md:mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-3 sm:mb-4 md:mb-6 px-4">
-              Why Choose AI Job Master
+              Why Choose Outriva.ai
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto px-4">
               More than software—your competitive advantage

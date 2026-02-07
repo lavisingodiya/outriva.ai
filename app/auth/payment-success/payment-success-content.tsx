@@ -147,7 +147,7 @@ export function PaymentSuccessContent() {
         </h1>
 
         <p className="text-slate-600 mb-6">
-          Thank you for upgrading to AI Job Master Plus. Your account has been activated.
+          Thank you for upgrading to Outriva.ai Plus. Your account has been activated.
         </p>
 
         <p className="text-sm text-slate-500 mb-8">

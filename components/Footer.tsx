@@ -45,7 +45,7 @@ export function Footer({ variant = 'full', isDark = false }: FooterProps) {
 
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className={`${textSecondary} text-xs md:text-sm`}>
-            © {currentYear} AI Job Master. Empowering careers worldwide.
+            © {currentYear} Outriva.ai. Empowering careers worldwide.
           </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className={`text-xs md:text-sm ${textSecondary} ${hoverLinkClass}`}>
@@ -81,7 +81,7 @@ export function Footer({ variant = 'full', isDark = false }: FooterProps) {
                 <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
               <div>
-                <p className={`font-bold text-base sm:text-lg ${textPrimary}`}>AI Job Master</p>
+                <p className={`font-bold text-base sm:text-lg ${textPrimary}`}>Outriva.ai</p>
                 <p className={`text-[10px] sm:text-xs ${textSecondary}`}>Career excellence</p>
               </div>
             </div>
@@ -170,7 +170,7 @@ export function Footer({ variant = 'full', isDark = false }: FooterProps) {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
           <p className={`text-xs sm:text-sm ${textSecondary} text-center md:text-left`}>
-            © {currentYear} AI Job Master. All rights reserved.
+            © {currentYear} Outriva.ai. All rights reserved.
           </p>
           <div className="text-center">
             {text && (

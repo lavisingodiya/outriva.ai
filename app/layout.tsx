@@ -14,7 +14,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "AI Job Master - Job Application Assistant",
+  title: "Outriva.ai - Job Application Assistant",
   description: "Generate personalized job application content with AI",
 };
 

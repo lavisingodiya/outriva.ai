@@ -1,4 +1,4 @@
-# AI Job Master
+# Outriva.ai
 
 A comprehensive web application that generates personalized job application content (cover letters, LinkedIn messages, emails) using AI and tracks outreach history with status management.
 

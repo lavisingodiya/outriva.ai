@@ -16,7 +16,7 @@ export async function createPlusCharge(
   console.log('Using API Key:', apiKey ? '***' : 'MISSING');
 
   const chargeData = {
-    name: 'AI Job Master Plus - Monthly Subscription',
+    name: 'Outriva.ai Plus - Monthly Subscription',
     description: 'Plus plan subscription at $5/month',
     local_price: {
       amount: '5.00',
