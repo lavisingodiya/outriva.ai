@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                   String            @id @default(uuid())
+  email                String            @unique
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  openaiApiKey         String?
+  anthropicApiKey      String?
+  geminiApiKey         String?
+  defaultResumeId      String?
+  defaultLlmModel      String?
+  defaultLength        Length            @default(MEDIUM)
+  autoSave             Boolean           @default(true)
+  defaultStatus        String?           @default("SENT")
+  anthropicModels      String[]          @default([])
+  geminiModels         String[]          @default([])
+  openaiModels         String[]          @default([])
+  userType             UserType          @default(FREE)
+  followupReminderDays Int               @default(7)
+  monthlyResetDate     DateTime          @default(now())
+  generationCount      Int               @default(0)
+  activityCount        Int               @default(0)
+  followupGenerationCount Int            @default(0)
+  resumeLink           String?
+  coverLetters         CoverLetter[]
+  customPrompts        CustomPrompt[]
+  emailMessages        EmailMessage[]
+  linkedinMessages     LinkedInMessage[]
+  notifications        Notification[]
+  resumes              Resume[]
+  activityHistory      ActivityHistory[]
+
+  @@map("users")
+}
+
+model Resume {
+  id               String            @id @default(uuid())
+  userId           String
+  title            String
+  fileName         String
+  fileUrl          String
+  content          String
+  isDefault        Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  coverLetters     CoverLetter[]
+  emailMessages    EmailMessage[]
+  linkedinMessages LinkedInMessage[]
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("resumes")
+}
+
+model CustomPrompt {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  content   String
+  tabType   TabType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name, tabType])
+  @@index([userId, tabType])
+  @@map("custom_prompts")
+}
+
+model CoverLetter {
+  id                 String            @id @default(uuid())
+  userId             String
+  resumeId           String?
+  companyName        String?
+  positionTitle      String?
+  jobDescription     String?
+  companyDescription String?
+  content            String
+  length             Length            @default(MEDIUM)
+  llmModel           String?
+  status             ApplicationStatus @default(SENT)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  resume             Resume?           @relation(fields: [resumeId], references: [id])
+  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("cover_letters")
+}
+
+model LinkedInMessage {
+  id                 String              @id @default(uuid())
+  userId             String
+  resumeId           String?
+  linkedinUrl        String?
+  recipientName      String?
+  recipientPosition  String?
+  positionTitle      String?
+  companyName        String
+  content            String
+  messageType        LinkedInMessageType @default(NEW)
+  parentMessageId    String?
+  jobDescription     String?
+  companyDescription String?
+  length             Length              @default(MEDIUM)
+  llmModel           String?
+  status             ApplicationStatus   @default(SENT)
+  requestReferral    Boolean             @default(false)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  areasOfInterest    String?
+  messageId          String?
+  parentMessage      LinkedInMessage?    @relation("LinkedInFollowUp", fields: [parentMessageId], references: [id], onDelete: Cascade)
+  followUpMessages   LinkedInMessage[]   @relation("LinkedInFollowUp")
+  resume             Resume?             @relation(fields: [resumeId], references: [id])
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notifications      Notification[]
+
+  @@index([userId, status])
+  @@index([userId, linkedinUrl])
+  @@index([messageId])
+  @@map("linkedin_messages")
+}
+
+model EmailMessage {
+  id                 String            @id @default(uuid())
+  userId             String
+  resumeId           String?
+  recipientEmail     String
+  recipientName      String?
+  recipientPosition  String?
+  positionTitle      String?
+  companyName        String
+  subject            String
+  body               String
+  messageType        EmailMessageType  @default(NEW)
+  parentMessageId    String?
+  jobDescription     String?
+  companyDescription String?
+  length             Length            @default(MEDIUM)
+  llmModel           String?
+  status             ApplicationStatus @default(SENT)
+  requestReferral    Boolean           @default(false)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  areasOfInterest    String?
+  messageId          String?
+  parentMessage      EmailMessage?     @relation("EmailFollowUp", fields: [parentMessageId], references: [id], onDelete: Cascade)
+  followUpMessages   EmailMessage[]    @relation("EmailFollowUp")
+  resume             Resume?           @relation(fields: [resumeId], references: [id])
+  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notifications      Notification[]
+
+  @@index([userId, status])
+  @@index([userId, recipientEmail])
+  @@index([messageId])
+  @@map("email_messages")
+}
+
+model UsageLimitSettings {
+  id                     String   @id @default(uuid())
+  userType               UserType @unique
+  maxActivities          Int      @default(100)
+  maxGenerations         Int      @default(100)
+  maxFollowupGenerations Int      @default(50)
+  includeFollowups       Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  @@map("usage_limit_settings")
+}
+
+model SystemSettings {
+  id                String   @id @default(uuid())
+  key               String   @unique
+  value             String
+  description       String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("system_settings")
+}
+
+model Notification {
+  id                String           @id @default(uuid())
+  userId            String
+  type              NotificationType @default(FOLLOWUP_REMINDER)
+  title             String
+  message           String
+  isRead            Boolean          @default(false)
+  linkedInMessageId String?
+  emailMessageId    String?
+  createdAt         DateTime         @default(now())
+  emailMessage      EmailMessage?    @relation(fields: [emailMessageId], references: [id], onDelete: Cascade)
+  linkedInMessage   LinkedInMessage? @relation(fields: [linkedInMessageId], references: [id], onDelete: Cascade)
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+model ActivityHistory {
+  id             String              @id @default(uuid())
+  userId         String
+  activityType   ActivityType
+  companyName    String
+  positionTitle  String?
+  recipient      String?
+  status         ApplicationStatus?
+  llmModel       String?
+  isDeleted      Boolean             @default(false)
+  isSaved        Boolean             @default(false)
+  isFollowup     Boolean             @default(false)
+  createdAt      DateTime            @default(now())
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, activityType])
+  @@index([userId, isDeleted])
+  @@map("activity_history")
+}
+
+model SharedApiKey {
+  id          String               @id @default(uuid())
+  provider    AiProvider
+  apiKey      String
+  models      String[]             @default([])
+  isActive    Boolean              @default(true)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  @@map("shared_api_keys")
+}
+
+enum AiProvider {
+  OPENAI
+  ANTHROPIC
+  GEMINI
+}
+
+enum ActivityType {
+  COVER_LETTER
+  LINKEDIN_MESSAGE
+  EMAIL_MESSAGE
+}
+
+enum NotificationType {
+  FOLLOWUP_REMINDER
+  SYSTEM
+}
+
+enum UserType {
+  FREE
+  PLUS
+  ADMIN
+}
+
+enum TabType {
+  COVER_LETTER
+  LINKEDIN
+  EMAIL
+}
+
+enum LinkedInMessageType {
+  NEW
+  FOLLOW_UP
+  CONNECTION_NOTE
+}
+
+enum EmailMessageType {
+  NEW
+  FOLLOW_UP
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SENT
+  DONE
+  GHOST
+  REQUESTED
+}
+
+enum Length {
+  CONCISE
+  MEDIUM
+  LONG
+}

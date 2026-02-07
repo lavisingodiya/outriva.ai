@@ -1,0 +1,119 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Next.js build / output
+.next/
+out/
+dist/
+build/
+
+# Local env files
+.env
+.env.*
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+.claude/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Prisma / SQLite local DB
+prisma/dev.db
+*.sqlite
+*.db
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Misc caches
+.cache/
+.turbo/
+.parcel-cache/
+/.pnp
+
+# Yarn PnP
+.pnp.cjs
+.pnp.js
+
+# Build outputs
+dist/
+build/
+
+# Optional: local env secrets
+.env.local
+.env.production.local
+.env.test.local
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# prisma
+/prisma/migrations
+
+# scripts folder (debug/test scripts)
+/scripts/
+
+# documentation folder
+/documentation/
+
+# Issues tracking (internal)
+ISSUES.md
